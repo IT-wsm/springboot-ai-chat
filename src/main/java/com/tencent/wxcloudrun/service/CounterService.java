@@ -12,4 +12,6 @@ public interface CounterService {
   void upsertCount(Counter counter);
 
   void clearCount(Integer id);
+
+    String getChartData(String question);
 }
