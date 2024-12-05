@@ -4,6 +4,7 @@ import cn.hutool.http.HttpRequest;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.tencent.wxcloudrun.dao.CountersMapper;
+import com.tencent.wxcloudrun.dto.ChartRequest;
 import com.tencent.wxcloudrun.model.Counter;
 import com.tencent.wxcloudrun.service.CounterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,10 @@ public class CounterServiceImpl implements CounterService {
 
 
     @Override
-    public String getChartData(String question) {
+    public String getChartData(ChartRequest chartRequest) {
+        System.out.println("FromUserName: \n" + chartRequest.getFromUserName());
+        System.out.println("question: \n" + chartRequest.getContent());
+        String question = chartRequest.getContent();
         //返回答案
         String answer = "";
 
@@ -133,6 +137,17 @@ public class CounterServiceImpl implements CounterService {
                 }
             }
         }
+
+        Map<String,Object> answerMap=new HashMap<>();
+        answerMap.put("touser",chartRequest.getFromUserName());
+        answerMap.put("msgtype","text");
+        HashMap<String,Object> answerContent=new HashMap<>();
+        answerContent.put("content",answer);
+        answerMap.put("text",answerContent);
+
+        //返回答案至微信
+        String send = HttpRequest.post("https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send").body(JSON.toJSONString(answerMap)).execute().body();
+        System.out.println("send:\n"+send);
         return answer;
     }
 }

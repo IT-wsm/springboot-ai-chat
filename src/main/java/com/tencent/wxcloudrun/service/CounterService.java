@@ -1,5 +1,6 @@
 package com.tencent.wxcloudrun.service;
 
+import com.tencent.wxcloudrun.dto.ChartRequest;
 import com.tencent.wxcloudrun.model.Counter;
 
 import java.util.Optional;
@@ -13,5 +14,5 @@ public interface CounterService {
 
   void clearCount(Integer id);
 
-    String getChartData(String question);
+    String getChartData(ChartRequest chartRequest);
 }

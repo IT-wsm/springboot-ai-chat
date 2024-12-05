@@ -92,7 +92,7 @@ public class CounterController {
      */
     @PostMapping(value = "/api/chart")
     public ApiResponse getChartData(@RequestBody ChartRequest chartRequest) {
-        String answer = counterService.getChartData(chartRequest.getQuestion());
+        String answer = counterService.getChartData(chartRequest);
         if (answer == null || "".equals(answer)) {
             return ApiResponse.error("获取答案失败");
         } else {
