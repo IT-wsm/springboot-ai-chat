@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Optional;
 import java.util.List;
 
@@ -91,8 +92,10 @@ public class CounterController {
      * @return
      */
     @PostMapping(value = "/api/chart")
-    public ApiResponse getChartData(@RequestBody ChartRequest chartRequest) {
-        String answer = counterService.getChartData(chartRequest);
+    public ApiResponse getChartData(@RequestBody(required = false) Object object) {
+        ChartRequest chartRequest=new ChartRequest();
+        chartRequest.setContent("你叫什么名字");
+        String answer = counterService.getChartData(object);
         if (answer == null || "".equals(answer)) {
             return ApiResponse.error("获取答案失败");
         } else {

@@ -38,10 +38,12 @@ public class CounterServiceImpl implements CounterService {
 
 
     @Override
-    public String getChartData(ChartRequest chartRequest) {
-        System.out.println("FromUserName: \n" + chartRequest.getFromUserName());
-        System.out.println("question: \n" + chartRequest.getContent());
-        String question = chartRequest.getContent();
+    public String getChartData(Object object) {
+        Map parameterMap = (Map) object;
+        String question = parameterMap.get("Content").toString();
+        String fromUserName = parameterMap.get("FromUserName").toString();
+        System.out.println("FromUserName: \n" + question);
+        System.out.println("question: \n" + fromUserName);
         //返回答案
         String answer = "";
 
@@ -139,7 +141,7 @@ public class CounterServiceImpl implements CounterService {
         }
 
         Map<String,Object> answerMap=new HashMap<>();
-        answerMap.put("touser",chartRequest.getFromUserName());
+        answerMap.put("touser",fromUserName);
         answerMap.put("msgtype","text");
         HashMap<String,Object> answerContent=new HashMap<>();
         answerContent.put("content",answer);

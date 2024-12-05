@@ -14,5 +14,5 @@ public interface CounterService {
 
   void clearCount(Integer id);
 
-    String getChartData(ChartRequest chartRequest);
+    String getChartData(Object object);
 }
