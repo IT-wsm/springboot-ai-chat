@@ -148,7 +148,8 @@ public class CounterServiceImpl implements CounterService {
         answerMap.put("text",answerContent);
 
         //返回答案至微信
-        String send = HttpRequest.post("https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send").body(JSON.toJSONString(answerMap)).execute().body();
+//        String send = HttpRequest.post("https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send").body(JSON.toJSONString(answerMap)).execute().body();
+        String send = HttpRequest.post("https://api.weixin.qq.com/cgi-bin/message/custom/send").body(JSON.toJSONString(answerMap)).execute().body();
         System.out.println("send:\n"+send);
         return answer;
     }
